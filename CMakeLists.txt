@@ -12,7 +12,7 @@ project( ${PROJECT_NAME} VERSION 0.0.1 LANGUAGES CXX)
 set( CMAKE_BUILD_TYPE Debug )
 
 # 设置C++的版本
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11 )
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -std=c++11 -march=native")
 
 message( "Build type:               ${CMAKE_BUILD_TYPE} ")
