@@ -19,6 +19,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <mutex>
 
 #define MAX_NETIF 8
 #define MAX_CAMERAS_PER_NETIF 32
@@ -58,31 +59,24 @@ public:
     virtual ~NanoLine();
 
     void init(const ParamNanoLine &param_nano_line_in) { param_nano_line = param_nano_line_in; }
-    static inline int64_t getTimestamp()
-    {
-        std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-
-        std::chrono::milliseconds mms = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now()).time_since_epoch();
-    }
 
 public:
     bool start();
-    bool stop();
+    void stop();
     bool getData(cv::Mat &img);
 
 private:
     void threadFunc();
-    void syncThreadFunc();
-    void asyncThreadFunc();
 
 private:
-    bool discoveCameras();
     bool initialization();
+    void discoveCameras();
     bool openCameras();
     bool adjustInterfaceCamera();
     bool getCameraRegisters();
     bool getImageCamera();
     bool initTransferbuffer();
+    bool startingGrab();
 
 private:
     ParamNanoLine param_nano_line;
@@ -91,8 +85,12 @@ private:
 
     std::thread start_Thread;
     bool thread_flag;
+    std::mutex mtx;
 
+    uint64_t timestamp_last_ercv;
     uint64_t size;
+    uint32_t maxHeight = 1600;
+    uint32_t maxWidth = 2048;
     uint32_t numBuffers = NUM_BUF;
     PUINT8 bufAddress[NUM_BUF];
 };

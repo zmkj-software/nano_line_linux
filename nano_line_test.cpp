@@ -28,25 +28,25 @@ int main(int argc, const char *argv[])
 
     cv::Mat img1, img2, img3;
 
-    // while (true)
-    // {
-    //     sp_nanoline1->getData(img1);
-    //     sp_nanoline1->getData(img2);
-    //     sp_nanoline1->getData(img3);
-    //     if (!img1.empty())
-    //     {
-    //         cv::imshow("paramnanoline1", img1);
-    //     }
-    //     if (!img2.empty())
-    //     {
-    //         cv::imshow("paramnanoline2", img2);
-    //     }
-    //     if (!img3.empty())
-    //     {
-    //         cv::imshow("paramnanoline3", img3);
-    //     }
-    //     cv::waitKey(10);
-    // }
+    while (true)
+    {
+        sp_nanoline1->getData(img1);
+        // sp_nanoline1->getData(img2);
+        // sp_nanoline1->getData(img3);
+        if (!img1.empty())
+        {
+            cv::imshow("paramnanoline1", img1);
+        }
+        // if (!img2.empty())
+        // {
+        //     cv::imshow("paramnanoline2", img2);
+        // }
+        // if (!img3.empty())
+        // {
+        //     cv::imshow("paramnanoline3", img3);
+        // }
+        cv::waitKey(10);
+    }
 
     return 0;
 }
